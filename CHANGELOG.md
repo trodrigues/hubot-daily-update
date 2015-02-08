@@ -1,4 +1,8 @@
+# v1.1.1
+* Fix regexp for weekly updates command
+
 # v1.1.0
+
 * Use "by" instead of "for" on get daily updates by user, for
   consistency
 * Remove "all" from get daily updates
