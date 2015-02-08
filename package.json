@@ -1,6 +1,6 @@
 {
   "name": "hubot-daily-update",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Hubot script to save daily updates.",
   "main": "index.js",
   "scripts": {},
