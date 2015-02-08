@@ -1,0 +1,29 @@
+{
+  "name": "hubot-daily-update",
+  "version": "0.0.1",
+  "description": "Hubot script to save daily updates.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/trodrigues/hubot-daily-update.git"
+  },
+  "keywords": [
+    "hubot",
+    "hubot-scripts",
+    "standup",
+    "daily"
+  ],
+  "dependencies": {
+    "lodash-node": "^3.1.0",
+    "moment": "^2.9.0"
+  },
+  "author": "Tiago Rodrigues <tmcrodrigues@gmail.com>",
+  "licence": "MIT",
+  "bugs": {
+    "url": "https://github.com/trodrigues/hubot-daily-update/issues"
+  },
+  "homepage": "https://github.com/trodrigues/hubot-daily-update",
+  "devDependencies": {},
+  "license": "MIT"
+}
