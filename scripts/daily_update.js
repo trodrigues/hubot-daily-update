@@ -8,9 +8,10 @@
 // Commands:
 //   hubot daily update help - List of commands
 //   hubot my update is <message> - Tell hubot about an update. You can tell hubot about how many updates you want in a day.
-//   hubot get daily updates for <username> - Gets all of today's updates for a user
-//   hubot get all daily updates - Gets all daily updates for all users for today
+//   hubot get daily updates by <username> - Gets all of today's updates for a user
+//   hubot get daily updates - Gets all daily updates for all users for today
 //   hubot get all daily updates for yesterday - Gets all daily updates for all users for yesterday
+//   hubot get all daily updates for last week for <room> - Gets all daily updates for all users for last week (Maybe a good idea to always use this in private chat with me)
 //   hubot get all daily updates for <X> days ago - Gets all daily updates for all users for X days ago
 //   hubot remove daily updates on <YYYY-MM-DD> by <username> - Removes all updates on a given date by a given user
 //   hubot remove daily updates by <username> - Removes all updates by a given user
@@ -44,7 +45,7 @@ module.exports = function(robot) {
       }
     });
 
-    robot.respond(/get daily updates for (\w*)/i, function(msg) {
+    robot.respond(/get daily updates by (\w*)/i, function(msg) {
       var username = msg.match[1];
       var room = msg.envelope.user.room;
       var today = getToday();
@@ -58,26 +59,35 @@ module.exports = function(robot) {
         return msg.send('No daily updates for this user yet');
 
       msg.send(
-        'Daily update of '+today+' for '+username+':\n```\n'+
-        renderMessages()+
-        '\n```'
+        'Daily update of '+today+' by '+username+':\n'+
+        renderMessages(messages[username][today])+
+        '\n'
       );
     });
 
-    robot.respond(/get all daily updates/i, function (msg) {
+    robot.respond(/get daily updates/i, function (msg) {
       if(msg.match.input.length === msg.match[0].length){
         var today = getToday();
-        getDailyUpdates(msg, today);
+        msg.send(getDailyUpdates(msg.envelope.user.room, today));
       }
     });
 
     robot.respond(/get all daily updates for yesterday/i, function (msg) {
-      getDailyUpdates(msg, getToday(-1));
+      msg.send(getDailyUpdates(msg.envelope.user.room, getToday(-1)));
+    });
+
+    robot.respond(/get all daily updates for last week for (\w+)/i, function (msg) {
+      var room = msg.match[1];
+      var output = '';
+      for(var i=7; i>=0; i--){
+        output += getDailyUpdates(room, getToday(-i));
+      }
+      msg.send(output);
     });
 
     robot.respond(/get all daily updates for (\d+) days ago/i, function (msg) {
       var day = parseInt(msg.match[1], 10);
-      getDailyUpdates(msg, getToday(-day));
+      msg.send(getDailyUpdates(msg.envelope.user.room, getToday(-day)));
     });
 
     robot.respond(/remove daily updates on ([\d|-]+) by (\w+)/i, function (msg) {
@@ -111,18 +121,17 @@ module.exports = function(robot) {
       msg.send('removed all updates for '+room);
     });
 
-    function getDailyUpdates(msg, currentDay) {
-      var room = msg.envelope.user.room;
+    function getDailyUpdates(room, currentDay) {
       var messages = getRoomMessages(room);
 
       if(_.keys(messages).length === 0) {
-        return msg.send('No updates for '+currentDay+' yet');
+        return 'No updates for '+currentDay+' yet';
       }
 
       var output = '';
       var day;
       _.each(messages, function (days, username) {
-        output += 'Updates for '+username+':\n';
+        output += 'Updates for '+username+' on '+currentDay+':\n';
         day = currentDay in days ? days[currentDay] : [];
         if(day.length > 0){
           output += renderMessages(day);
@@ -132,7 +141,7 @@ module.exports = function(robot) {
         output += '\n';
       });
 
-      msg.send(output);
+      return output;
     }
 
     function getRoomMessages(room) {
@@ -161,9 +170,10 @@ module.exports = function(robot) {
         message.push("I can store as many status updates per day as you want. Just tell me about what you did. Here's how you can do it:");
         message.push("");
         message.push(robot.name + " my update is <message> - Tell hubot about an update. You can tell hubot about how many updates you want in a day.");
-        message.push(robot.name + " get daily updates for <username> - Gets all of today's updates for a user");
-        message.push(robot.name + " get all daily updates - Gets all daily updates for all users for today");
+        message.push(robot.name + " get daily updates by <username> - Gets all of today's updates for a user");
+        message.push(robot.name + " get daily updates - Gets all daily updates for all users for today");
         message.push(robot.name + " get all daily updates for yesterday - Gets all daily updates for all users for yesterday");
+        message.push(robot.name + " get all daily updates for last week for <room> - Gets all daily updates for all users for last week (Maybe a good idea to always use this in private chat with me)");
         message.push(robot.name + " get all daily updates for <X> days ago - Gets all daily updates for all users for X days ago");
         message.push(robot.name + " remove daily updates on <YYYY-MM-DD> by <username> - Removes all updates on a given date by a given user");
         message.push(robot.name + " remove daily updates by <username> - Removes all updates by a given user");

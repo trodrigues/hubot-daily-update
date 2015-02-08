@@ -24,11 +24,13 @@ Use together with [hubot-standup-alarm](https://github.com/hubot-scripts/hubot-s
 
 `hubot my update is` - Tell hubot about an update. You can tell hubot about how many updates you want in a day.
 
-`hubot get daily updates for user` - Gets all of today's updates for a user
+`hubot get daily updates by user` - Gets all of today's updates for a user
 
-`hubot get all daily updates` - Gets all daily updates for all users for today
+`hubot get daily updates` - Gets all daily updates for all users for today
 
 `hubot get all daily updates for yesterday` - Gets all daily updates for all users for yesterday
+
+`hubot get all daily updates for last week for <room>` - Gets all daily updates for all users for last week (Maybe a good idea to always use this in private chat with me)
 
 `hubot get all daily updates for X days ago` - Gets all daily updates for all users for X days ago
 
