@@ -76,11 +76,12 @@ module.exports = function(robot) {
       msg.send(getDailyUpdates(msg.envelope.user.room, getToday(-1)));
     });
 
-    robot.respond(/get all daily updates for last week for (\w+)/i, function (msg) {
+    robot.respond(/get all daily updates for last week for ([#|\w|\d|_|-]+)/i, function (msg) {
       var room = msg.match[1];
+      console.log(room);
       var output = '';
       for(var i=7; i>=0; i--){
-        output += getDailyUpdates(room, getToday(-i));
+        output += getDailyUpdates(room, getToday(-i))+'\n';
       }
       msg.send(output);
     });
