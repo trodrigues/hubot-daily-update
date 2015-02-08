@@ -32,6 +32,13 @@ Use together with [hubot-standup-alarm](https://github.com/hubot-scripts/hubot-s
 
 `hubot get all daily updates for X days ago` - Gets all daily updates for all users for X days ago
 
+`hubot remove daily updates on <YYYY-MM-DD> by <username>` - Removes all updates on a given date by a given user
+
+`hubot remove daily updates by <username>` - Removes all updates by a given user
+
+`hubot remove daily updates for room` - Removes all updates for the current room
+
+
 ## Installation via NPM
 
 Run the following command to install this module as a Hubot dependency
