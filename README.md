@@ -16,6 +16,8 @@ You can retrieve status updates for the current or previous days.
 The output is tailored for Slack and assumes existence of Markdown's code
 markers, but should work well for others as well.
 
+Use together with [hubot-standup-alarm](https://github.com/hubot-scripts/hubot-standup-alarm) so you can be reminded to do your updates.
+
 ## Usage
 
 `hubot daily update help` - List of commands
@@ -46,4 +48,4 @@ To enable the script, add the hubot-daily-update entry to the external-scripts.j
 
 ## Acknowledgements
 
-Shamelessly based off the hubot-standup-alarm plugin
+Shamelessly based off the [hubot-standup-alarm](https://github.com/hubot-scripts/hubot-standup-alarm) plugin
