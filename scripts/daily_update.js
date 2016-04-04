@@ -3,7 +3,6 @@
 //
 //   The output is tailored for Slack and assumes existence of Markdown's code markers,
 //   but should work well for others as well.
-
 //
 // Commands:
 //   hubot daily update help - List of commands
