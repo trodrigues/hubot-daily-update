@@ -44,7 +44,7 @@ module.exports = function(robot) {
       }
     });
 
-    robot.respond(/get daily updates by (\w*)/i, function(msg) {
+    robot.respond(/get daily updates by ([a-z0-9][a-z0-9. _-]*)/i, function(msg) {
       var username = msg.match[1];
       var room = msg.envelope.user.room;
       var today = getToday();
@@ -104,7 +104,7 @@ module.exports = function(robot) {
       msg.send('removed all updates for '+username+' on '+date);
     });
 
-    robot.respond(/remove daily updates by (\w+)/i, function (msg) {
+    robot.respond(/remove daily updates by ([a-z0-9][a-z0-9. _-]*)/i, function (msg) {
       var username = msg.match[1];
       var room = msg.envelope.user.room;
       var roomMessages = getRoomMessages(room);
