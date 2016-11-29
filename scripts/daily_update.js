@@ -25,7 +25,7 @@ var moment = require('moment');
 
 module.exports = function(robot) {
 
-    robot.respond(/my update is ((.*\s*)+)/i, function(msg) {
+    robot.respond(/my update is((.*\s*)+)/i, function(msg) {
       var dailyUpdate = msg.match[1];
       if(dailyUpdate.length > 0) {
         var username = msg.envelope.user.name;
