@@ -27,8 +27,8 @@ module.exports = function(robot) {
 
     robot.respond(/my update is (.*)/i, function(msg) {
       var dailyUpdate = msg.match[1];
+      var username = msg.envelope.user.name;
       if(dailyUpdate.length > 0) {
-        var username = msg.envelope.user.name;
         var room = msg.envelope.user.room;
         var today = getToday();
         var messages = getRoomMessages(room);
@@ -38,24 +38,25 @@ module.exports = function(robot) {
 
         saveRoomMessages(room, messages);
 
-        msg.send('added your daily update');
+        msg.send('Sure ' + username + ', added your daily update.');
       } else {
-        msg.send('Sorry, your update is empty. Try again');
+        msg.send('Sorry ' + username + ', your update is empty. Try again');
       }
     });
 
     robot.respond(/get daily updates by (\w*)/i, function(msg) {
       var username = msg.match[1];
+      var requester_username = msg.envelope.user.name;
       var room = msg.envelope.user.room;
       var today = getToday();
       var messages = getRoomMessages(room);
 
       if(username.length === 0)
-        return msg.send('You need to supply a user name');
+        return msg.send(requester_username + ', you need to supply a user name');
       if(!(username in messages))
-        return msg.send('This user does not exist or has never stored any updates');
+        return msg.send('This user(' + username + ') does not exist or has never stored any updates');
       if(!(today in messages[username]) || messages[username][today].length === 0)
-        return msg.send('No daily updates for this user yet');
+        return msg.send('No daily updates for this user(' + username + ') yet');
 
       msg.send(
         'Daily update of '+today+' by '+username+':\n'+
