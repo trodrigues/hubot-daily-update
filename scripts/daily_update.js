@@ -26,7 +26,7 @@ var moment = require('moment');
 module.exports = function(robot) {
 
     robot.respond(/my update is((.*\s*)+)/i, function(msg) {
-      var dailyUpdate = msg.match[1];
+      var dailyUpdate = msg.match[1].trimLeft();  // Trimming the leading (left) whitespaces
       var username = msg.envelope.user.name;
       if(dailyUpdate.length > 0) {
         var room = msg.envelope.user.room;
