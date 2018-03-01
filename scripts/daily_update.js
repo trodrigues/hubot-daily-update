@@ -4,8 +4,11 @@
 //   The output is tailored for Slack and assumes existence of Markdown's code markers,
 //   but should work well for others as well.
 //
+// Dependencies:
+//   lodash
+//   moment
+//
 // Commands:
-//   hubot daily update help - List of commands
 //   hubot my update is <message> - Tell hubot about an update. You can tell hubot about how many updates you want in a day.
 //   hubot get daily updates by <username> - Gets all of today's updates for a user
 //   hubot get daily updates - Gets all daily updates for all users for today
@@ -15,10 +18,6 @@
 //   hubot remove daily updates on <YYYY-MM-DD> by <username> - Removes all updates on a given date by a given user
 //   hubot remove daily updates by <username> - Removes all updates by a given user
 //   hubot remove daily updates for room - Removes all updates for the current room
-//
-// Dependencies:
-//   lodash
-//   moment
 
 var _ = require('lodash-node');
 var moment = require('moment');
@@ -164,22 +163,4 @@ module.exports = function(robot) {
       return today.format('YYYY-MM-DD');
     }
 
-    robot.respond(/daily update help/i, function(msg) {
-        var message = [];
-        message.push("I'll store your status updates!");
-        message.push("I can store as many status updates per day as you want. Just tell me about what you did. Here's how you can do it:");
-        message.push("");
-        message.push(robot.name + " my update is <message> - Tell hubot about an update. You can tell hubot about how many updates you want in a day.");
-        message.push(robot.name + " get daily updates by <username> - Gets all of today's updates for a user");
-        message.push(robot.name + " get daily updates - Gets all daily updates for all users for today");
-        message.push(robot.name + " get all daily updates for yesterday - Gets all daily updates for all users for yesterday");
-        message.push(robot.name + " get all daily updates for last week for <room> - Gets all daily updates for all users for last week (Maybe a good idea to always use this in private chat with me)");
-        message.push(robot.name + " get all daily updates for <X> days ago - Gets all daily updates for all users for X days ago");
-        message.push(robot.name + " remove daily updates on <YYYY-MM-DD> by <username> - Removes all updates on a given date by a given user");
-        message.push(robot.name + " remove daily updates by <username> - Removes all updates by a given user");
-        message.push(robot.name + " remove daily updates for room - Removes all updates for the current room");
-
-
-        msg.send(message.join('\n'));
-    });
 };
