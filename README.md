@@ -20,7 +20,7 @@ Use together with [hubot-standup-alarm](https://github.com/hubot-scripts/hubot-s
 
 ## Usage
 
-`hubot daily update help` - List of commands
+`hubot help daily` - List of commands
 
 `hubot my update is` - Tell hubot about an update. You can tell hubot about how many updates you want in a day.
 
